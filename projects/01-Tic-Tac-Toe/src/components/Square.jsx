@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 export function Square ({children, updateBoard, index, isSelected}) {
     const handleClick = () => {
       updateBoard(index)
