@@ -1,11 +1,17 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
 import { TURNS, WINNER_COMBOS } from '../constants';
 import confetti from 'canvas-confetti'
 
 export function useReferee (){
-    const [board, setBoard] = useState(Array(9).fill(null))
-    const [turn, setTurn] = useState(TURNS.X)
+    const [board, setBoard] = useState(() =>{
+        const  boardFromStorage = JSON.parse(window.localStorage.getItem('board'));
+        if (boardFromStorage) return boardFromStorage
+        return Array(9).fill(null)
+    })
+    const [turn, setTurn] = useState(() =>{
+        const  turnFromStorage = window.localStorage.getItem('turn');
+        return turnFromStorage ?? TURNS.X
+    })
     const [winner, setWinner] = useState(null) // false=Draw 
   
     function checkWinner (boardToCheck) {
@@ -33,9 +39,14 @@ export function useReferee (){
   
       const newBoard = [...board];
       newBoard[index] = turn;
-  
       setBoard(newBoard);
-      setTurn(turn==TURNS.X ? TURNS.O : TURNS.X);
+
+      const newTurn = (turn==TURNS.X) ? TURNS.O : TURNS.X
+      setTurn(newTurn);
+
+      // Guardar partida
+      window.localStorage.setItem('board', JSON.stringify(newBoard))
+      window.localStorage.setItem('turn', newTurn)
   
       // Winner checking
       const newWinner = checkWinner(newBoard);
@@ -48,9 +59,11 @@ export function useReferee (){
     }
   
     function handleReset () {
-      setBoard(Array(9).fill(null));
-      setWinner(null);
-      setTurn(TURNS.X);
+        setBoard(Array(9).fill(null));
+        setWinner(null);
+        setTurn(TURNS.X);
+        window.localStorage.removeItem('board')
+        window.localStorage.removeItem('turn')
     }
   
     return {board, turn, winner, updateBoard, handleReset}

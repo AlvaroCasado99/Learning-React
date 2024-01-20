@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { Square } from "./Square";
+import PropTypes from 'prop-types';
 
 export function WinnerModal({winner, resetBoard}){
     if (winner===null) return null;
@@ -21,4 +21,9 @@ export function WinnerModal({winner, resetBoard}){
             </div>
         </section>
     )
+}
+
+WinnerModal.propTypes = {
+    winner: PropTypes.string,
+    resetBoard: PropTypes.func.isRequired
 }

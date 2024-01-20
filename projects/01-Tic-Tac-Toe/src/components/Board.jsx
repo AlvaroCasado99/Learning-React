@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { Square } from '../components/Square'
+import PropTypes from 'prop-types';
 
 export function Board({board, updateBoard}){
     return(
@@ -16,3 +16,8 @@ export function Board({board, updateBoard}){
           </section>
     )
 }
+
+Board.propTypes = {
+  board: PropTypes.array.isRequired,
+  updateBoard: PropTypes.func.isRequired
+};
