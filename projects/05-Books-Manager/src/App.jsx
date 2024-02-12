@@ -1,34 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/* eslint-disable react/prop-types */
+import { useSearch } from "./hooks/useSearch";
+import { useMovies } from "./hooks/useMovies";
+import { Movies } from "./components/Movies.jsx";
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [filter, setFilter] = useState(false);
+  const {search, error: searchError, updateSearch} = useSearch();
+  const {movies, error: moviesError, loading, getMovies, debouncedGetMovies} = useMovies({filter, search});
+
+  /**
+   * Se encarga de la comprobación del campo de búsqueda
+   */
+  const handleChange = (event) => {
+    const newSearch = event.target.value;
+    updateSearch(newSearch)
+    debouncedGetMovies(newSearch)
+  }
+
+  /**
+   * Se encarga de hacer las búsquedas
+   */
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    getMovies({search})
+  }
+
+  const handleFilter = () => {
+    setFilter(!filter);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="page">
+      <header>
+        <h1>Film Manager</h1>
+        <form className="form" onSubmit={handleSubmit}>
+          <input type="text" placeholder="Avengers, Matrix..." onChange={handleChange} value={search}/>
+          <input type="checkbox" onChange={handleFilter} checked={filter}/>
+          <button>Buscar</button>
+        </form>
+        {searchError && <strong style={{color:'red'}}>{searchError}</strong>}
+      </header>
+      <main>
+        {
+          (loading)
+            ? <p>Cargando...</p>
+            : <Movies movies={movies} />
+        }
+
+        {moviesError && <strong style={{color:'red'}}>{moviesError}</strong>}
+      </main>
+    </div>
   )
 }
 
