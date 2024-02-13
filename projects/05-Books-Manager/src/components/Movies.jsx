@@ -1,6 +1,12 @@
 /* eslint-disable react/prop-types */
 
-function MovieItem({title, year, poster}){
+import { useWatchlist } from "../hooks/useWatchList";
+
+function MovieItem({id, title, year, poster, movie}){
+	const {watchlist, addToWatchlist, removeFromWatchlist} = useWatchlist();
+
+	const isMovieInList = watchlist.some(item => item.id===id)
+
 	return(
 		<li className="movie">
 			<header>
@@ -8,6 +14,17 @@ function MovieItem({title, year, poster}){
 				<p>{year}</p>
 			</header>
 			<img src={poster} alt={title}/>
+			<button 
+				onClick={()=> {
+					isMovieInList
+						? removeFromWatchlist(id)
+						: addToWatchlist(movie)
+					}}>
+						{
+							isMovieInList ? "Remove" : "Add"
+						}
+					
+			</button>
 		</li>
 	)
 }
@@ -19,9 +36,11 @@ function ListMovies({movies}){
 				movies.map(movie => (
 					<MovieItem 
 						key={movie.id}
+						id={movie.id}
 						title={movie.title}
 						year={movie.year}
 						poster={movie.poster}
+						movie={movie}
 					/>
 				))
 			}

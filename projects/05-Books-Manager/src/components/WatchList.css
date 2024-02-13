@@ -1,0 +1,46 @@
+.watchlist {
+    display: none;
+    overflow: auto;
+
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+
+    background: gray;
+}
+
+.watchlist-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+
+    width: 32px;
+    height: 32px;
+
+    background: gray;
+    border-radius: 9999px;
+
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.watchlist-button:hover {
+    scale: 1.1;
+}
+
+.watchlist-button ~ input:checked ~ .watchlist {
+    display: block;
+    height: 100%;
+}
+
+/* .watchlist img {
+    aspect-ratio: 16/9;
+    width: 100%;
+} */
