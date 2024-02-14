@@ -6,7 +6,7 @@ export function searchMovies({search}){
         throw new Error("An error occured while searching for this movie.")
       })
       .then(data => {
-        return data?.Search?.map(movie => (
+        const movies = data?.Search?.map(movie => (
           {
             id: movie.imdbID,
             title: movie.Title,
@@ -14,5 +14,10 @@ export function searchMovies({search}){
             poster: movie.Poster
           }
         ))
+
+        // Me aseguro de que si no hay películas me devuelva una Array vacío
+        return (movies)
+          ? movies
+          : []
       })
   }
