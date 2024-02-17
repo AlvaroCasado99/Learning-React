@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useMemo, useRef, useState } from "react";
 import { searchMovies } from "../services/movies"
 import debounce from "just-debounce-it"
