@@ -1,0 +1,41 @@
+.irrigation-editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.irrigation-editor form{
+    width: 100%;
+}
+
+.irrigation-editor form > header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.irrigation-editor form > header label{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.irrigation-editor form > header input{
+    margin: 0;
+}
+
+.irrigation-editor form > section {
+    margin: 1.5rem 0px;
+    padding: .75rem 0px;
+}
+
+.input-error{
+    border-color: red;
+    color: red;
+}
+
+p.error{
+    color: red;
+    font-size: medium;
+}

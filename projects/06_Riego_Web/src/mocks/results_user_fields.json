@@ -1,0 +1,37 @@
+{
+    "Results":[
+        {
+            "fieldId": "#Field1",
+            "type": "sprinkler",
+            "addres": "Calle de la salmuera",
+            "surface": 10,
+            "sectors": 6,
+            "maxTime": 2520,
+            "startDay": 2,
+            "startHour": "17:00",
+            "period": 2
+        },
+        {
+            "fieldId": "#Field2",
+            "type": "sprinkler",
+            "addres": "Calle de la habichuela",
+            "surface": 20,
+            "sectors": 10,
+            "maxTime": 5040,
+            "startDay": 3,
+            "startHour": "16:00",
+            "period": 3
+        },
+        {
+            "fieldId": "#Field3",
+            "type": "sprinkler",
+            "addres": "Calle del maiz",
+            "surface": 35,
+            "sectors": 13,
+            "maxTime": 7360,
+            "startDay": 2,
+            "startHour": "15:00",
+            "period": 4
+        }
+    ]
+}
